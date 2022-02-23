@@ -165,7 +165,7 @@ having to set anything up.
 <TechDocsPage>
   {({ techdocsMetadataValue, entityMetadataValue, entityRef, onReady }) => (
     <>
-      <TechDocsPageHeader
+      <TechDocsReaderPageHeader
         techDocsMetadata={techdocsMetadataValue}
         entityMetadata={entityMetadataValue}
         entityRef={entityRef}
