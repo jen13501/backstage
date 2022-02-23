@@ -5,7 +5,6 @@
 ```ts
 /// <reference types="react" />
 
-import { Action } from '@material-table/core';
 import { ApiRef } from '@backstage/core-plugin-api';
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { Config } from '@backstage/config';
@@ -24,31 +23,24 @@ import { TableProps } from '@backstage/core-components';
 import { UserListFilterKind } from '@backstage/plugin-catalog-react';
 
 // @public
-export const DefaultTechDocsHome: ({
-  initialFilter,
-  columns,
-  actions,
-}: {
-  initialFilter?: UserListFilterKind | undefined;
-  columns?: TableColumn<DocsTableRow>[] | undefined;
-  actions?:
-    | (
-        | Action<DocsTableRow>
-        | {
-            action: (rowData: DocsTableRow) => Action<DocsTableRow>;
-            position: string;
-          }
-        | ((rowData: DocsTableRow) => Action<DocsTableRow>)
-      )[]
-    | undefined;
-}) => JSX.Element;
+export const DefaultTechDocsHome: (
+  props: DefaultTechDocsHomeProps,
+) => JSX.Element;
 
 // @public
-export const DocsCardGrid: ({
-  entities,
-}: {
+export type DefaultTechDocsHomeProps = {
+  initialFilter?: UserListFilterKind;
+  columns?: TableColumn<DocsTableRow>[];
+  actions?: TableProps<DocsTableRow>['actions'];
+};
+
+// @public
+export const DocsCardGrid: (props: DocsCardGridProps) => JSX.Element | null;
+
+// @public
+export type DocsCardGridProps = {
   entities: Entity[] | undefined;
-}) => JSX.Element | null;
+};
 
 // @public @deprecated (undocumented)
 export const DocsResultListItem: (
@@ -197,11 +189,14 @@ export class TechDocsClient implements TechDocsApi {
 }
 
 // @public
-export const TechDocsCustomHome: ({
-  tabsConfig,
-}: {
+export const TechDocsCustomHome: (
+  props: TechDocsCustomHomeProps,
+) => JSX.Element;
+
+// @public
+export type TechDocsCustomHomeProps = {
   tabsConfig: TabsConfig;
-}) => JSX.Element;
+};
 
 // @public
 export type TechDocsEntityMetadata = Entity & {
@@ -224,12 +219,9 @@ export const TechDocsPage: (props: TechDocsReaderPageProps) => JSX.Element;
 export const TechdocsPage: () => JSX.Element;
 
 // @public @deprecated (undocumented)
-export const TechDocsPageHeader: ({
-  entityRef,
-  entityMetadata,
-  techDocsMetadata,
-  children,
-}: TechDocsReaderPageHeaderProps) => JSX.Element;
+export const TechDocsPageHeader: (
+  props: TechDocsReaderPageHeaderProps,
+) => JSX.Element;
 
 // @public @deprecated (undocumented)
 export type TechDocsPageHeaderProps = TechDocsReaderPageHeaderProps;
@@ -272,12 +264,9 @@ export const TechDocsReaderPage: (
 ) => JSX.Element;
 
 // @public
-export const TechDocsReaderPageHeader: ({
-  entityRef,
-  entityMetadata,
-  techDocsMetadata,
-  children,
-}: TechDocsReaderPageHeaderProps) => JSX.Element;
+export const TechDocsReaderPageHeader: (
+  props: TechDocsReaderPageHeaderProps,
+) => JSX.Element;
 
 // @public
 export type TechDocsReaderPageHeaderProps = PropsWithChildren<{
